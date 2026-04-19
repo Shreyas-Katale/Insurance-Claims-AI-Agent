@@ -1,0 +1,10 @@
+python-dotenv>=1.0.1
+langchain>=1.2.15
+langchain-core>=1.2.31
+langchain-groq>=1.1.2
+pymupdf>=1.27.2.2
+pypdf>=6.10.2
+python-dateutil>=2.9.0.post0
+streamlit>=1.56.0
+langsmith>=0.6.10
+groq>=1.0.0
