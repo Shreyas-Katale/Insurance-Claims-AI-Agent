@@ -1,0 +1,135 @@
+{
+  "claim_id": "CLM-002",
+  "status": "incomplete",
+  "extracted_fields": {
+    "vin": {
+      "value": "3FADP4BJ7EM207685",
+      "confidence": "high",
+      "source": "customer_reply.txt, finance_agreement.pdf, settlement_breakdown.png",
+      "reason": "clearly stated in the text"
+    },
+    "date_of_loss": {
+      "value": "2026-01-28",
+      "confidence": "high",
+      "source": "customer_reply.txt, settlement_breakdown.png",
+      "reason": "explicitly mentioned in the text"
+    },
+    "outstanding_loan_balance": {
+      "value": 15890.2,
+      "confidence": "high",
+      "source": "finance_agreement.pdf, settlement_breakdown.png",
+      "reason": "listed as CURRENT OUTSTANDING BALANCE"
+    },
+    "insurance_payout": {
+      "value": 12400.0,
+      "confidence": "high",
+      "source": "settlement_breakdown.png",
+      "reason": "clearly visible in the document"
+    }
+  },
+  "documents": {
+    "identified": [
+      {
+        "file": "customer_reply.txt",
+        "type": "customer_communication"
+      },
+      {
+        "file": "finance_agreement.pdf",
+        "type": "finance_agreement"
+      },
+      {
+        "file": "settlement_breakdown.png",
+        "type": "settlement_breakdown"
+      }
+    ],
+    "missing": [
+      "police_report"
+    ],
+    "duplicates": []
+  },
+  "issues": [],
+  "next_action": {
+    "type": "finalize",
+    "message": "We appreciate your time and understand that you will upload the police report next week. We will pause your claim until then. Please feel free to upload the document as soon as it's available, and we will promptly review your claim."
+  },
+  "tools_used": [
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "customer_reply.txt"
+      },
+      "result": {
+        "document_type": "customer_communication",
+        "extracted_data": {
+          "vin": {
+            "value": "3FADP4BJ7EM207685",
+            "confidence": "high",
+            "reason": "clearly stated in the text"
+          },
+          "date_of_loss": {
+            "value": "2026-01-28",
+            "confidence": "high",
+            "reason": "explicitly mentioned in the text"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "finance_agreement.pdf"
+      },
+      "result": {
+        "document_type": "finance_agreement",
+        "extracted_data": {
+          "vin": {
+            "value": "3FADP4BJ7EM207685",
+            "confidence": "high",
+            "reason": "clearly stated in the VEHICLE INFORMATION section"
+          },
+          "outstanding_loan_balance": {
+            "value": 15890.2,
+            "confidence": "high",
+            "reason": "listed as CURRENT OUTSTANDING BALANCE"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "settlement_breakdown.png"
+      },
+      "result": {
+        "document_type": "settlement_breakdown",
+        "extracted_data": {
+          "vin": {
+            "value": "3FADP4BJ7EM207685",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "date_of_loss": {
+            "value": "01/28/2026",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "insurance_payout": {
+            "value": 12400.0,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 15890.2,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          }
+        }
+      }
+    },
+    {
+      "tool": "draft_customer_message",
+      "input": "Missing Documents: police_report\n\nActive Issues:\n\n\nRecent Conversation Context:\nASSISTANT: {\n  \"type\": \"tool_call\",\n   \"tool_name\": \"process_unidentified_files\",\n   \"arguments\": {\n      \"files\": [\"customer_reply.txt\", \"finance_agreement.pdf\", \"settlement_breakdown.png\"]\n   },\n   \"message\": null,\n   \"status\": null,\n   \"reasoning\": \"There are unprocessed files waiting in the folder, so the first priority is to call 'process_unidentified_files' to identify and extract data from these files.\"\n}\nUSER: Tool 'process_unidentified_files' executed successfully. Check the updated state.\nASSISTANT: {\n  \"type\": \"message_customer\",\n   \"tool_name\": null,\n   \"arguments\": {},\n   \"message\": \"We are missing a police report to complete your claim. Please upload the document as soon as possible.\",\n   \"status\": null,\n   \"reasoning\": \"The claim is missing a required document (police report), so the next action is to message the customer to request the missing document.\"\n}",
+      "result": "We appreciate your progress on the claim. However, we still need the police report to complete the process. Please upload the document as soon as possible so we can move forward with your claim."
+    }
+  ]
+}

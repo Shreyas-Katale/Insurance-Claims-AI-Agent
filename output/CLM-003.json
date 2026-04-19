@@ -1,0 +1,242 @@
+{
+  "claim_id": "CLM-003",
+  "status": "needs_review",
+  "extracted_fields": {
+    "vin": {
+      "value": "2T1BURHE5JC034182 (finance_agreement.pdf) VS 2T1BURHE5JC034127 (police_report.png) (finance_agreement.pdf, police_report.png) VS 2T1BURHE5JC034127 (settlement_breakdown.pdf) (finance_agreement.pdf, police_report.png, settlement_breakdown.pdf) VS 2T1BURHE5JC034127 (settlement_breakdown_v2.pdf)",
+      "confidence": "low",
+      "source": "finance_agreement.pdf, police_report.png, settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+      "reason": "clearly visible in the document"
+    },
+    "outstanding_loan_balance": {
+      "value": 27650.0,
+      "confidence": "high",
+      "source": "finance_agreement.pdf, settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+      "reason": "clearly stated in the document"
+    },
+    "date_of_loss": {
+      "value": "2026-03-05",
+      "confidence": "high",
+      "source": "police_report.png, settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+      "reason": "clearly stated in the DATE OF INCIDENT section"
+    },
+    "insurance_payout": {
+      "value": "24100.0 (settlement_breakdown.pdf) VS 23800.0 (settlement_breakdown_v2.pdf)",
+      "confidence": "low",
+      "source": "settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+      "reason": "clearly visible in the document"
+    }
+  },
+  "documents": {
+    "identified": [
+      {
+        "file": "finance_agreement.pdf",
+        "type": "finance_agreement"
+      },
+      {
+        "file": "police_report.png",
+        "type": "police_report"
+      },
+      {
+        "file": "settlement_breakdown.pdf",
+        "type": "settlement_breakdown"
+      },
+      {
+        "file": "settlement_breakdown_v2.pdf",
+        "type": "settlement_breakdown"
+      }
+    ],
+    "missing": [],
+    "duplicates": []
+  },
+  "issues": [
+    {
+      "type": "inconsistency",
+      "description": "VIN mismatch across documents",
+      "details": "finance_agreement VIN: 2T1BURHE5JC034182, police_report VIN: 2T1BURHE5JC034127, settlement_breakdown VIN: 2T1BURHE5JC034127, settlement_breakdown_v2 VIN: 2T1BURHE5JC034127"
+    },
+    {
+      "type": "inconsistency",
+      "description": "Insurance payout amount mismatch",
+      "details": "settlement_breakdown payout: 24100.0, settlement_breakdown_v2 payout: 23800.0"
+    }
+  ],
+  "next_action": {
+    "type": "finalize",
+    "message": "We have identified inconsistencies in the claim documents. The VIN number does not match across all documents, and there is a discrepancy in the insurance payout amount. We require further review to resolve these issues."
+  },
+  "tools_used": [
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "finance_agreement.pdf"
+      },
+      "result": {
+        "document_type": "finance_agreement",
+        "extracted_data": {
+          "vin": {
+            "value": "2T1BURHE5JC034182",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 27650.0,
+            "confidence": "high",
+            "reason": "clearly stated in the document"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "police_report.png"
+      },
+      "result": {
+        "document_type": "police_report",
+        "extracted_data": {
+          "vin": {
+            "value": "2T1BURHE5JC034127",
+            "confidence": "high",
+            "reason": "clearly stated in the VEHICLE INFORMATION section"
+          },
+          "date_of_loss": {
+            "value": "2026-03-05",
+            "confidence": "high",
+            "reason": "clearly stated in the DATE OF INCIDENT section"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "settlement_breakdown.pdf"
+      },
+      "result": {
+        "document_type": "settlement_breakdown",
+        "extracted_data": {
+          "vin": {
+            "value": "2T1BURHE5JC034127",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "date_of_loss": {
+            "value": "03/05/2026",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "insurance_payout": {
+            "value": 24100.0,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 27650.0,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "settlement_breakdown_v2.pdf"
+      },
+      "result": {
+        "document_type": "settlement_breakdown",
+        "extracted_data": {
+          "vin": {
+            "value": "2T1BURHE5JC034127",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "date_of_loss": {
+            "value": "03/05/2026",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "insurance_payout": {
+            "value": 23800.0,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 27650.0,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          }
+        }
+      }
+    },
+    {
+      "tool": "validate_claim_data",
+      "input": {
+        "extracted_fields": {
+          "vin": {
+            "value": "2T1BURHE5JC034182 (finance_agreement.pdf) VS 2T1BURHE5JC034127 (police_report.png) (finance_agreement.pdf, police_report.png) VS 2T1BURHE5JC034127 (settlement_breakdown.pdf) (finance_agreement.pdf, police_report.png, settlement_breakdown.pdf) VS 2T1BURHE5JC034127 (settlement_breakdown_v2.pdf)",
+            "confidence": "low",
+            "source": "finance_agreement.pdf, police_report.png, settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 27650.0,
+            "confidence": "high",
+            "source": "finance_agreement.pdf, settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+            "reason": "clearly stated in the document"
+          },
+          "date_of_loss": {
+            "value": "2026-03-05",
+            "confidence": "high",
+            "source": "police_report.png, settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+            "reason": "clearly stated in the DATE OF INCIDENT section"
+          },
+          "insurance_payout": {
+            "value": "24100.0 (settlement_breakdown.pdf) VS 23800.0 (settlement_breakdown_v2.pdf)",
+            "confidence": "low",
+            "source": "settlement_breakdown.pdf, settlement_breakdown_v2.pdf",
+            "reason": "clearly visible in the document"
+          }
+        },
+        "documents": {
+          "identified": [
+            {
+              "file": "finance_agreement.pdf",
+              "type": "finance_agreement"
+            },
+            {
+              "file": "police_report.png",
+              "type": "police_report"
+            },
+            {
+              "file": "settlement_breakdown.pdf",
+              "type": "settlement_breakdown"
+            },
+            {
+              "file": "settlement_breakdown_v2.pdf",
+              "type": "settlement_breakdown"
+            }
+          ],
+          "missing": [],
+          "duplicates": []
+        }
+      },
+      "result": {
+        "is_consistent": false,
+        "issues": [
+          {
+            "type": "inconsistency",
+            "description": "VIN mismatch across documents",
+            "details": "finance_agreement VIN: 2T1BURHE5JC034182, police_report VIN: 2T1BURHE5JC034127, settlement_breakdown VIN: 2T1BURHE5JC034127, settlement_breakdown_v2 VIN: 2T1BURHE5JC034127"
+          },
+          {
+            "type": "inconsistency",
+            "description": "Insurance payout amount mismatch",
+            "details": "settlement_breakdown payout: 24100.0, settlement_breakdown_v2 payout: 23800.0"
+          }
+        ]
+      }
+    }
+  ]
+}

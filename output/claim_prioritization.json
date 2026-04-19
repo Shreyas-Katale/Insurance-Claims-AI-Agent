@@ -1,0 +1,29 @@
+{
+    "processing_order": [
+        {
+            "claim_id": "CLM-003",
+            "status": "needs_review",
+            "reason": "Critical VIN mismatch issue requiring immediate fraud review and high financial exposure ($27,650 outstanding loan balance and potential $23,800 insurance payout)."
+        },
+        {
+            "claim_id": "CLM-004",
+            "status": "incomplete",
+            "reason": "VIN mismatch issue and moderate financial exposure ($19,200 outstanding loan balance), but claim is incomplete due to missing no documents and requires review."
+        },
+        {
+            "claim_id": "CLM-005",
+            "status": "incomplete",
+            "reason": "High financial exposure ($35,120.75 outstanding loan balance and $31,500 insurance payout) and only one document (finance agreement) is missing."
+        },
+        {
+            "claim_id": "CLM-001",
+            "status": "incomplete",
+            "reason": "High financial exposure ($22,000 outstanding loan balance and $18,500 insurance payout) but claim is incomplete and requires customer action."
+        },
+        {
+            "claim_id": "CLM-002",
+            "status": "incomplete",
+            "reason": "Low financial exposure ($15,890 outstanding loan balance and $12,400 insurance payout) and only one document (police report) is missing."
+        }
+    ]
+}

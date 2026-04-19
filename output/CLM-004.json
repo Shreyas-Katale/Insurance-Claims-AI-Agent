@@ -1,0 +1,205 @@
+{
+  "claim_id": "CLM-004",
+  "status": "needs_review",
+  "extracted_fields": {
+    "vin": {
+      "value": "5YJ3E1EA7K (finance_agreement.png) VS 5YJJ3E1EA7K (police_report.png) (finance_agreement.png, police_report.png) VS 5YJ3E1EA7K (settlement_breakdown.png) (finance_agreement.png, police_report.png, settlement_breakdown.png) VS 5YJ3E1EA7K (tow_receipt.png)",
+      "confidence": "low",
+      "source": "finance_agreement.png, police_report.png, settlement_breakdown.png, tow_receipt.png",
+      "reason": "clearly visible in the document"
+    },
+    "outstanding_loan_balance": {
+      "value": "19200.00",
+      "confidence": "high",
+      "source": "finance_agreement.png, settlement_breakdown.png",
+      "reason": "clearly stated in the loan details section"
+    },
+    "date_of_loss": {
+      "value": "2025-12-19",
+      "confidence": "high",
+      "source": "police_report.png, settlement_breakdown.png, tow_receipt.png",
+      "reason": "clearly stated in the INCIDENT INFORMATION and NARRATIVE sections"
+    }
+  },
+  "documents": {
+    "identified": [
+      {
+        "file": "finance_agreement.png",
+        "type": "finance_agreement"
+      },
+      {
+        "file": "police_report.png",
+        "type": "police_report"
+      },
+      {
+        "file": "settlement_breakdown.png",
+        "type": "settlement_breakdown"
+      },
+      {
+        "file": "tow_receipt.png",
+        "type": "tow_receipt"
+      }
+    ],
+    "missing": [],
+    "duplicates": []
+  },
+  "issues": [
+    {
+      "type": "inconsistency",
+      "description": "VIN mismatch across documents",
+      "details": "police_report VIN: 5YJJ3E1EA7K, finance_agreement VIN: 5YJ3E1EA7K, settlement_breakdown VIN: 5YJ3E1EA7K, tow_receipt VIN: 5YJ3E1EA7K"
+    }
+  ],
+  "next_action": {
+    "type": "finalize",
+    "message": "We have identified an inconsistency in the Vehicle Identification Number (VIN) across the provided documents. The police report lists the VIN as 5YJJ3E1EA7K, while the finance agreement, settlement breakdown, and tow receipt list it as 5YJ3E1EA7K. We require a consistent VIN to process your claim. Please review and provide clarification or corrected documents."
+  },
+  "tools_used": [
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "finance_agreement.png"
+      },
+      "result": {
+        "document_type": "finance_agreement",
+        "extracted_data": {
+          "vin": {
+            "value": "5YJ3E1EA7K",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 19200.0,
+            "confidence": "high",
+            "reason": "clearly stated in the loan details section"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "police_report.png"
+      },
+      "result": {
+        "document_type": "police_report",
+        "extracted_data": {
+          "vin": {
+            "value": "5YJJ3E1EA7K",
+            "confidence": "high",
+            "reason": "clearly stated in the VEHICLE INFORMATION section"
+          },
+          "date_of_loss": {
+            "value": "2025-12-19",
+            "confidence": "high",
+            "reason": "clearly stated in the INCIDENT INFORMATION and NARRATIVE sections"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "settlement_breakdown.png"
+      },
+      "result": {
+        "document_type": "settlement_breakdown",
+        "extracted_data": {
+          "vin": {
+            "value": "5YJ3E1EA7K",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": 19200.0,
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "date_of_loss": {
+            "value": "2025-12-19",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          }
+        }
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "tow_receipt.png"
+      },
+      "result": {
+        "document_type": "tow_receipt",
+        "extracted_data": {
+          "vin": {
+            "value": "5YJ3E1EA7K",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          },
+          "date_of_loss": {
+            "value": "12/19/2025",
+            "confidence": "high",
+            "reason": "clearly visible in the document"
+          }
+        }
+      }
+    },
+    {
+      "tool": "validate_claim_data",
+      "input": {
+        "extracted_fields": {
+          "vin": {
+            "value": "5YJ3E1EA7K (finance_agreement.png) VS 5YJJ3E1EA7K (police_report.png) (finance_agreement.png, police_report.png) VS 5YJ3E1EA7K (settlement_breakdown.png) (finance_agreement.png, police_report.png, settlement_breakdown.png) VS 5YJ3E1EA7K (tow_receipt.png)",
+            "confidence": "low",
+            "source": "finance_agreement.png, police_report.png, settlement_breakdown.png, tow_receipt.png",
+            "reason": "clearly visible in the document"
+          },
+          "outstanding_loan_balance": {
+            "value": "19200.00",
+            "confidence": "high",
+            "source": "finance_agreement.png, settlement_breakdown.png",
+            "reason": "clearly stated in the loan details section"
+          },
+          "date_of_loss": {
+            "value": "2025-12-19",
+            "confidence": "high",
+            "source": "police_report.png, settlement_breakdown.png, tow_receipt.png",
+            "reason": "clearly stated in the INCIDENT INFORMATION and NARRATIVE sections"
+          }
+        },
+        "documents": {
+          "identified": [
+            {
+              "file": "finance_agreement.png",
+              "type": "finance_agreement"
+            },
+            {
+              "file": "police_report.png",
+              "type": "police_report"
+            },
+            {
+              "file": "settlement_breakdown.png",
+              "type": "settlement_breakdown"
+            },
+            {
+              "file": "tow_receipt.png",
+              "type": "tow_receipt"
+            }
+          ],
+          "missing": [],
+          "duplicates": []
+        }
+      },
+      "result": {
+        "is_consistent": false,
+        "issues": [
+          {
+            "type": "inconsistency",
+            "description": "VIN mismatch across documents",
+            "details": "police_report VIN: 5YJJ3E1EA7K, finance_agreement VIN: 5YJ3E1EA7K, settlement_breakdown VIN: 5YJ3E1EA7K, tow_receipt VIN: 5YJ3E1EA7K"
+          }
+        ]
+      }
+    }
+  ]
+}
