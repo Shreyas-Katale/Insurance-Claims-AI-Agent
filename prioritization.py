@@ -26,7 +26,7 @@ def generate_processing_order():
 
     prompt = """You are an AI Claims Manager. Review the following processed insurance claims.
     
-    Your task is to determine the optimal processing order for the human claims team. Since there are no 'complete' claims, you must use advanced triage logic to rank the backlog:
+    Your task is to determine the optimal processing order for the human claims team. Use the following logic to rank the backlog:
     
     1. Status Hierarchy: 'needs_review' claims take priority over 'incomplete' claims (human adjusters can actively resolve conflicts, whereas 'incomplete' claims are blocked waiting on the customer).
     2. Financial Exposure (High Priority): For claims with the same status, prioritize those with the highest extracted 'insurance_payout' or 'outstanding_loan_balance'. High-dollar liabilities must be triaged first.
