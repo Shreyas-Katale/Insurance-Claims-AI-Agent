@@ -24,16 +24,19 @@ def validate_claim_data(state: ClaimState) -> None:
                 ))
                 state.extracted_fields["vin"].confidence = "low"
 
-    if "outstanding_loan_balance" in fields and "net_insurance_payout" in fields:
+    if "outstanding_loan_balance" in state.extracted_fields and "insurance_payout" in state.extracted_fields:
         try:
             # Strip out any potential dollar signs or commas before converting to float
-            raw_loan = str(fields["outstanding_loan_balance"].value).replace(',', '').replace('$', '')
-            raw_payout = str(fields["net_insurance_payout"].value).replace(',', '').replace('$', '')
+            raw_loan = str(state.extracted_fields["outstanding_loan_balance"].value).replace(',', '').replace('$', '')
+            raw_payout = str(state.extracted_fields["insurance_payout"].value).replace(',', '').replace('$', '')
             
             loan_balance = float(raw_loan)
+            print(f"Loan Balance: {loan_balance}")
             payout = float(raw_payout)
+            print(f"Payout: {payout}")
             
             gap_amount = loan_balance - payout
+            print(f"Gap Amount: {gap_amount}")
             
             if gap_amount > 0:
                 state.issues.append(IssueRecord(

@@ -1,29 +1,29 @@
 {
   "claim_id": "CLM-001",
-  "status": "complete",
+  "status": "needs_review",
   "extracted_fields": {
     "vin": {
       "value": "1HGCM82633A004352",
       "confidence": "high",
-      "source": "finance_agreement.png, police_report.pdf, settlement_breakdown.pdf",
+      "source": "finance_agreement.png, police_report.pdf, settlement_breakdown.pdf, adjuster_note.png",
       "reason": "clearly visible in the document"
     },
     "outstanding_loan_balance": {
-      "value": "22340.55",
-      "confidence": "high",
-      "source": "finance_agreement.png, settlement_breakdown.pdf",
-      "reason": "clearly stated in the loan details section"
+      "value": "22340.55 (finance_agreement.png, settlement_breakdown.pdf) VS 22000.00 (adjuster_note.png)",
+      "confidence": "low",
+      "source": "finance_agreement.png, settlement_breakdown.pdf, adjuster_note.png",
+      "reason": "clearly stated in the loan details"
     },
     "date_of_loss": {
       "value": "2026-02-14",
       "confidence": "high",
-      "source": "police_report.pdf, settlement_breakdown.pdf",
+      "source": "police_report.pdf, settlement_breakdown.pdf, adjuster_note.png",
       "reason": "clearly stated in the incident information section"
     },
     "insurance_payout": {
-      "value": "18750.00",
-      "confidence": "high",
-      "source": "settlement_breakdown.pdf",
+      "value": "18750.00 (settlement_breakdown.pdf) VS 18500.00 (adjuster_note.png)",
+      "confidence": "low",
+      "source": "settlement_breakdown.pdf, adjuster_note.png",
       "reason": "clearly visible in the document"
     }
   },
@@ -40,15 +40,25 @@
       {
         "file": "settlement_breakdown.pdf",
         "type": "settlement_breakdown"
+      },
+      {
+        "file": "adjuster_note.png",
+        "type": "customer_communication"
       }
     ],
     "missing": [],
     "duplicates": []
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "policy_limit_exposure",
+      "description": "Negative equity detected. Loan balance exceeds base payout.",
+      "details": "Gap Amount: $3590.55. Requires manual review of customer's Gap Insurance policy rider."
+    }
+  ],
   "next_action": {
     "type": "finalize",
-    "message": "Dear Customer, we have reviewed your claim (CLM-001) and all required documents are present with consistent information. Your claim is now marked as complete and will be processed for payout. Thank you for your patience."
+    "message": "Dear Customer,\n\nThank you for submitting your claim. All required documents have been received and the extracted information is consistent. However, we have identified that the outstanding loan balance ($22,340.55) exceeds the insurance payout ($18,750.00), resulting in a negative equity situation. This requires a manual review of your Gap Insurance coverage and further assessment by our adjusters.\n\nWe will review your claim in detail and contact you shortly with the next steps.\n\nThank you for your patience.\n\nSincerely,\nClaims Processing Team"
   },
   "tools_used": [
     {
@@ -67,7 +77,7 @@
           "outstanding_loan_balance": {
             "value": 22340.55,
             "confidence": "high",
-            "reason": "clearly stated in the loan details section"
+            "reason": "clearly stated in the loan details"
           }
         }
       }
@@ -138,7 +148,7 @@
             "value": "22340.55",
             "confidence": "high",
             "source": "finance_agreement.png, settlement_breakdown.pdf",
-            "reason": "clearly stated in the loan details section"
+            "reason": "clearly stated in the loan details"
           },
           "date_of_loss": {
             "value": "2026-02-14",
@@ -175,6 +185,37 @@
       "result": {
         "is_consistent": true,
         "issues": []
+      }
+    },
+    {
+      "tool": "extract_data_from_text",
+      "input": {
+        "file": "adjuster_note.png"
+      },
+      "result": {
+        "document_type": "customer_communication",
+        "extracted_data": {
+          "vin": {
+            "value": "1HGCM82633A004352",
+            "confidence": "high",
+            "reason": "clearly stated in the text"
+          },
+          "date_of_loss": {
+            "value": "02/14/2026",
+            "confidence": "high",
+            "reason": "clearly stated in the text"
+          },
+          "insurance_payout": {
+            "value": "18500.0",
+            "confidence": "medium",
+            "reason": "estimated value range provided, assuming lower end of range"
+          },
+          "outstanding_loan_balance": {
+            "value": "22000.0",
+            "confidence": "medium",
+            "reason": "owner mentioned loan amount, but no confirmation from lender"
+          }
+        }
       }
     }
   ]

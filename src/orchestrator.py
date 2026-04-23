@@ -47,6 +47,7 @@ def get_orchestrator_decision(state: ClaimState, folder_path: str) -> Orchestrat
 
     # 2. Call Groq with JSON mode enforced
     response = client.chat.completions.create(
+        # model="llama-3.3-70b-versatile",
         model="openai/gpt-oss-120b",
         messages=messages,
         temperature=0.1, 

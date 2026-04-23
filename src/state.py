@@ -23,7 +23,7 @@ class DocumentState(BaseModel):
 
 class IssueRecord(BaseModel):
     """Logs conflicts, missing data, or low-confidence extractions."""
-    type: Literal["inconsistency", "missing_document", "invalid", "low_confidence", "unresolvable"]
+    type: Literal["inconsistency", "missing_document", "invalid", "low_confidence", "policy_limit_exposure"]
     description: str
     details: str | None = None
 
