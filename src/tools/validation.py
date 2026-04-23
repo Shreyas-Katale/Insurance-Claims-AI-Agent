@@ -24,6 +24,27 @@ def validate_claim_data(state: ClaimState) -> None:
                 ))
                 state.extracted_fields["vin"].confidence = "low"
 
+    if "outstanding_loan_balance" in fields and "net_insurance_payout" in fields:
+        try:
+            # Strip out any potential dollar signs or commas before converting to float
+            raw_loan = str(fields["outstanding_loan_balance"].value).replace(',', '').replace('$', '')
+            raw_payout = str(fields["net_insurance_payout"].value).replace(',', '').replace('$', '')
+            
+            loan_balance = float(raw_loan)
+            payout = float(raw_payout)
+            
+            gap_amount = loan_balance - payout
+            
+            if gap_amount > 0:
+                state.issues.append(IssueRecord(
+                    type="policy_limit_exposure",
+                    description="Negative equity detected. Loan balance exceeds base payout.",
+                    details=f"Gap Amount: ${gap_amount:.2f}. Requires manual review of customer's Gap Insurance policy rider."
+                ))
+        except (ValueError, TypeError):
+            # If the LLM extracted something weird like "Unknown", pass it to the LLM to flag
+            pass
+    
     # LLM Consistency Checks (Comparing values across documents)
     state_subset = {
         "extracted_fields": {k: v.model_dump() for k, v in state.extracted_fields.items()},

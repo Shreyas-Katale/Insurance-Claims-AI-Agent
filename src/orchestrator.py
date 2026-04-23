@@ -47,7 +47,7 @@ def get_orchestrator_decision(state: ClaimState, folder_path: str) -> Orchestrat
 
     # 2. Call Groq with JSON mode enforced
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=messages,
         temperature=0.1, 
         response_format={"type": "json_object"},
@@ -90,7 +90,6 @@ def run_agent_step(state: ClaimState, folder_path: str) -> str:
                 state.llm_history.append({"role": "user", "content": "Tool 'validate_claim_data' executed successfully. Check issues and fields in the state."})
                 
             else:
-
                 state.llm_history.append({"role": "user", "content": f"Error: Tool '{decision.tool_name}' does not exist. Use 'process_unidentified_files' or 'validate_claim_data'."})
 
 
